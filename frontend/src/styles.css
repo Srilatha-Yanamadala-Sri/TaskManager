@@ -1,0 +1,24 @@
+.completed-task {
+  text-decoration: line-through;
+  color: gray;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 100px;
+  padding: 20px;
+}
+.card {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 10px;
+  background-color: gainsboro;
+  padding : 20px;
+  margin: 20px;
+  transition: 0.3s;
+  justify-content: center;
+  }
+
+.completed-task {
+  text-decoration: line-through;
+  color: gray;
+}
