@@ -1,0 +1,15 @@
+{
+  "name": "task-manager",
+  "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "cd backend && nodemon index.js",
+    "client": "cd frontend && npm start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.0",
+    "nodemon": "^3.1.10"
+  },
+  "dependencies": {
+    "morgan": "^1.10.0"
+  }
+}
