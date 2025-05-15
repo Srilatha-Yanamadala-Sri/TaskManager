@@ -21,15 +21,20 @@ export const addTask = async (title: string): Promise<Task> => {
   if (!res.ok) throw new Error("Failed to add task");
   return res.json();
 };
-
+// taskService.ts
 export const toggleTask = async (task: Task): Promise<Task> => {
-  const res = await fetch(`${API_URL}/${task._id}`, {
+  const response = await fetch(`${API_URL}/${task._id}`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...task, completed: !task.isCompleted }),
+    body: JSON.stringify({ isCompleted: !task.isCompleted }),
   });
-  if (!res.ok) throw new Error("Failed to update task");
-  return res.json();
+
+  if (!response.ok) {
+    console.error("Response Error:", await response.text());
+    throw new Error("Failed to toggle task");
+  }
+
+  return response.json();
 };
 
 export const deleteTask = async (id: string): Promise<void> => {

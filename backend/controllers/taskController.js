@@ -39,26 +39,33 @@ exports.createTask = async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to create task' });
   }
-};
-
-exports.updateTask = async (req, res) => {
+};exports.updateTask = async (req, res) => {
   const { title, description, isCompleted } = req.body;
+
+  // Validate title length if provided
   if (title && title.length > 100) {
     return res.status(400).json({ error: 'Title must be less than 100 characters' });
   }
+
+  // Validate description length if provided
   if (description && description.length > 500) {
     return res.status(400).json({ error: 'Description must be less than 500 characters' });
   }
+
   try {
     const updatedTask = await Task.findByIdAndUpdate(
       req.params.id,
-      { title, description, isCompleted },
+      { ...(title && { title }), ...(description && { description }), ...(isCompleted !== undefined && { isCompleted }) },
       { new: true }
     );
-    if (!updatedTask) return res.status(404).json({ error: 'Task not found' });
+
+    if (!updatedTask) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
     res.status(200).json(updatedTask);
   } catch (error) {
-    res.status(400).json({ error: 'Invalid task ID' });
+    res.status(400).json({ error: 'Invalid task ID or update failed' });
   }
 };
 

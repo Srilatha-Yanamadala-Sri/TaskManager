@@ -61,15 +61,15 @@ const App = () => {
     setEditingTaskId(null);
     setEditingTitle("");
   };
-
-  const handleToggleTask = async (task: Task) => {
-    try {
-      const updatedTask = await toggleTask(task);
-      setTasks(tasks.map((t) => (t._id === updatedTask._id ? updatedTask : t)));
-    } catch (err) {
-      setError("Failed to update task");
-    }
-  };
+const handleToggleTask = async (task: Task) => {
+  try {
+    const updatedTask = await toggleTask(task);
+    console.log("Updated Task:", updatedTask); // Debugging
+    setTasks(tasks.map((t) => (t._id === updatedTask._id ? updatedTask : t)));
+  } catch (err) {
+    setError("Failed to update task");
+  }
+};
 
   const handleDeleteTask = async (id: string) => {
     try {
