@@ -14,15 +14,23 @@ router.get('/', async (req, res) => {
 
 // Example POST route
 router.post('/', async (req, res) => {
+    console.log('POST /api/tasks called');
+    console.log('Request body:', req.body);
+
     try {
         const { title } = req.body;
+        if (!title) {
+            return res.status(400).json({ error: 'Title is required' });
+        }
         const newTask = new Task({ title, isCompleted: false });
         await newTask.save();
         res.status(201).json(newTask);
     } catch (error) {
+        console.error('Error creating task:', error); // <-- add this line to log the full error
         res.status(500).json({ error: 'Failed to create task' });
     }
 });
+
 router.delete('/:id', async (req, res) => {
   try {
     const deletedTask = await Task.findByIdAndDelete(req.params.id);
