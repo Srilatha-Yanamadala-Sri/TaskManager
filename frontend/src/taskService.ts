@@ -1,10 +1,10 @@
+const API_URL = `${process.env.REACT_APP_API_BASE}/tasks`;
+
 export type Task = {
   _id?: string;
   title: string;
-  isCompleted: boolean; // Change `completed` to `isCompleted`
+  isCompleted: boolean;
 };
-
-const API_URL = "http://localhost:5000/api/tasks";
 
 export const fetchTasks = async (): Promise<Task[]> => {
   const res = await fetch(API_URL);
@@ -16,12 +16,12 @@ export const addTask = async (title: string): Promise<Task> => {
   const res = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ title, completed: false }),
+    body: JSON.stringify({ title, isCompleted: false }),  // <-- fixed key to isCompleted
   });
   if (!res.ok) throw new Error("Failed to add task");
   return res.json();
 };
-// taskService.ts
+
 export const toggleTask = async (task: Task): Promise<Task> => {
   const response = await fetch(`${API_URL}/${task._id}`, {
     method: "PUT",
@@ -41,6 +41,7 @@ export const deleteTask = async (id: string): Promise<void> => {
   const res = await fetch(`${API_URL}/${id}`, { method: "DELETE" });
   if (!res.ok) throw new Error("Failed to delete task");
 };
+
 export const updateTask = async (task: Task): Promise<Task> => {
   const res = await fetch(`${API_URL}/${task._id}`, {
     method: "PUT",

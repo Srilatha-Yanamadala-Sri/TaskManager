@@ -14,6 +14,7 @@ app.get('/', (req, res) => {
   res.send('✅ Task Manager API is up and running!');
 });
 
+
 app.use('/api/tasks', taskRoutes);
 
 mongoose.connect(process.env.MONGO_URI, {
