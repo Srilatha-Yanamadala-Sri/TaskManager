@@ -101,70 +101,76 @@ const handleToggleTask = async (task: Task) => {
             Add Task
           </button>
         </div>
-        <ul className="list-group">
-          {tasks.map((task) => (
-            <li
-              key={task._id}
-              className="list-group-item d-flex justify-content-between align-items-center"
-            >
-              {editingTaskId === task._id ? (
-                <>
-                  <input
-                    type="text"
-                    className="form-control me-2"
-                    value={editingTitle}
-                    onChange={(e) => setEditingTitle(e.target.value)}
-                  />
-                  <button
-                    className="btn btn-success btn-sm me-2"
-                    onClick={handleEditSave}
-                  >
-                    Save
-                  </button>
-                  <button
-                    className="btn btn-secondary btn-sm"
-                    onClick={handleEditCancel}
-                  >
-                    Cancel
-                  </button>
-                </>
-              ) : (
-                <>
-                  <div className="d-flex align-items-center">
-                    <input
-                      type="checkbox"
-                      className="form-check-input me-2"
-                      checked={task.isCompleted}
-                      onChange={() => handleToggleTask(task)}
-                    />
-                    <span
-                      style={{
-                        textDecoration: task.isCompleted
-                          ? "line-through"
-                          : "none",
-                      }}
-                    >
-<span style={{ marginRight: "30px" }}>{task.title}</span>
-                    <button
-                      className="btn btn-warning btn-sm me-2"
-                      onClick={() => handleEditStart(task)}
-                    >
-                      Edit
-                    </button>
-                    <button
-                      className="btn btn-danger btn-sm"
-                      onClick={() => handleDeleteTask(task._id!)}
-                    >
-                      Delete
-                    </button>
-                    </span>
-                  </div>
-                 
-                </>
-              )}
-            </li>
-          ))}
-        </ul>
+         <ul className="list-group">
+      {tasks.map((task) => (
+        <li
+          key={task._id}
+          className="list-group-item"
+        >
+          {editingTaskId === task._id ? (
+            <div className="d-flex align-items-center justify-content-between">
+              <input
+                type="text"
+                className="form-control me-2"
+                value={editingTitle}
+                onChange={(e) => setEditingTitle(e.target.value)}
+              />
+              <div>
+                <button
+                  className="btn btn-success btn-sm me-2"
+                  onClick={handleEditSave}
+                >
+                  Save
+                </button>
+                <button
+                  className="btn btn-secondary btn-sm"
+                  onClick={handleEditCancel}
+                >
+                  Cancel
+                </button>
+              </div>
+            </div>
+          ) : (
+            <div className="d-flex align-items-center justify-content-between">
+              <div className="d-flex align-items-center">
+                <input
+                  type="checkbox"
+                  className="form-check-input me-2"
+                  checked={task.isCompleted}
+                  onChange={() => handleToggleTask(task)}
+                />
+                <span
+                  style={{
+                    textDecoration: task.isCompleted ? "line-through" : "none",
+                    maxWidth: "180px",
+                    overflow: "hidden",
+                    textOverflow: "ellipsis",
+                    whiteSpace: "nowrap",
+                    display: "inline-block",
+                  }}
+                >
+                  {task.title}
+                </span>
+              </div>
+              <div>
+                <button
+                  className="btn btn-warning btn-sm me-2"
+                  onClick={() => handleEditStart(task)}
+                >
+                  Edit
+                </button>
+                <button
+                  className="btn btn-danger btn-sm"
+                  onClick={() => handleDeleteTask(task._id!)}
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
+          )}
+        </li>
+      ))}
+    </ul>
       </div>
     </div>
   );
