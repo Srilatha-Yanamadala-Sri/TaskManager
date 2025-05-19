@@ -131,42 +131,45 @@ const handleToggleTask = async (task: Task) => {
               </div>
             </div>
           ) : (
-            <div className="d-flex align-items-center justify-content-between">
-              <div className="d-flex align-items-center">
-                <input
-                  type="checkbox"
-                  className="form-check-input me-2"
-                  checked={task.isCompleted}
-                  onChange={() => handleToggleTask(task)}
-                />
-                <span
-                  style={{
-                    textDecoration: task.isCompleted ? "line-through" : "none",
-                    maxWidth: "180px",
-                    overflow: "hidden",
-                    textOverflow: "ellipsis",
-                    whiteSpace: "nowrap",
-                    display: "inline-block",
-                  }}
-                >
-                  {task.title}
-                </span>
-              </div>
-              <div>
-                <button
-                  className="btn btn-warning btn-sm me-2"
-                  onClick={() => handleEditStart(task)}
-                >
-                  Edit
-                </button>
-                <button
-                  className="btn btn-danger btn-sm"
-                  onClick={() => handleDeleteTask(task._id!)}
-                >
-                  Delete
-                </button>
-              </div>
-            </div>
+          <div className="d-flex justify-content-between align-items-start">
+  <div
+    style={{
+      flex: 1,
+      marginRight: "10px",
+      whiteSpace: "normal",
+      wordBreak: "break-word",
+    }}
+  >
+    <input
+      type="checkbox"
+      className="form-check-input me-2"
+      checked={task.isCompleted}
+      onChange={() => handleToggleTask(task)}
+    />
+    <span
+      style={{
+        textDecoration: task.isCompleted ? "line-through" : "none",
+      }}
+    >
+      {task.title}
+    </span>
+  </div>
+  <div style={{ flexShrink: 0 }}>
+    <button
+      className="btn btn-warning btn-sm me-2"
+      onClick={() => handleEditStart(task)}
+    >
+      Edit
+    </button>
+    <button
+      className="btn btn-danger btn-sm"
+      onClick={() => handleDeleteTask(task._id!)}
+    >
+      Delete
+    </button>
+  </div>
+</div>
+
           )}
         </li>
       ))}
